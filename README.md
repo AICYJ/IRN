@@ -50,14 +50,10 @@ pip install -r requirements.txt
 
 ### Dataset preparation
 
-All datasets can be downloaded [here](https://drive.google.com/drive/folders/1Gv1MXjLo5bLGep4bsqDyaNMI2oQC9GH2?usp=sharing). To prepare all dataset at one time, you can just run:
+All datasets can be downloaded [here](https://drive.google.com/drive/folders/1RIQ5V1yOojvkf2R4yh2MotFF_p5QmoTk?usp=sharing). To prepare all dataset at one time, you can just run:
 ```
 source prepare_data.sh
 ```
-[![ett](https://img.shields.io/badge/Download-ETT_Dataset-%234285F4?logo=GoogleDrive&labelColor=lightgrey)](https://drive.google.com/drive/folders/1NU85EuopJNkptFroPtQVXMZE70zaBznZ)
-[![pems](https://img.shields.io/badge/Download-PeMS_Dataset-%234285F4?logo=GoogleDrive&labelColor=lightgrey)](https://drive.google.com/drive/folders/17fwxGyQ3Qb0TLOalI-Y9wfgTPuXSYgiI)
-[![financial](https://img.shields.io/badge/Download-financial_Dataset-%234285F4?logo=GoogleDrive&labelColor=lightgrey)](https://drive.google.com/drive/folders/12ffxwxVAGM_MQiYpIk9aBLQrb2xQupT-)
-
 The data directory structure is shown as follows. 
 ```
 datasets
@@ -75,7 +71,7 @@ datasets
  ┃ ┣ exchange_rate.txt
  ┃ ┣ solar_AL.txt
  ┃ ┗ traffic.txt
- 
+
 ```
 
 ### pretrain preparation
