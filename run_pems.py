@@ -7,7 +7,7 @@ import pandas as pd
 import numpy as np
 from torch.utils.tensorboard import SummaryWriter
 
-parser = argparse.ArgumentParser(description='SCINet on pems datasets')
+parser = argparse.ArgumentParser(description='IRN on pems datasets')
 
 ### -------  dataset settings --------------
 parser.add_argument('--dataset', type=str, default='PEMS08', choices=['PEMS03', 'PEMS04', 'PEMS07', 'PEMS08'])  #sometimes use: PeMS08

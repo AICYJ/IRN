@@ -281,8 +281,6 @@ cd ..
 
 cd ..
 
-cd ..
-
 
 
 mkdir -p electricity
@@ -400,9 +398,4 @@ gdown "https://drive.google.com/uc?id=1rX4IjF_USVQPJohwO0KvhUu2mmZRlIg4"
 cd ..
 
 cd ..
-
-
 cd ..
-
-
-

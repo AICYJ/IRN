@@ -8,7 +8,7 @@ import pandas as pd
 import numpy as np
 from torch.utils.tensorboard import SummaryWriter
 
-parser = argparse.ArgumentParser(description='SCINet on financial datasets')
+parser = argparse.ArgumentParser(description='IRN on financial datasets')
 ### -------  dataset settings --------------
 parser.add_argument('--dataset_name', type=str, default='exchange_rate', choices=['electricity', 'solar_AL', 'exchange_rate', 'traffic'])
 parser.add_argument('--data', type=str, default='./datasets/exchange_rate.txt',
