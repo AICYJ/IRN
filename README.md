@@ -50,7 +50,8 @@ pip install -r requirements.txt
 
 ### Dataset preparation
 
-All datasets can be downloaded [here](https://drive.google.com/drive/folders/1RIQ5V1yOojvkf2R4yh2MotFF_p5QmoTk?usp=sharing). To prepare all dataset at one time, you can just run:
+<!-- All datasets can be downloaded [here](https://drive.google.com/drive/folders/1RIQ5V1yOojvkf2R4yh2MotFF_p5QmoTk?usp=sharing).  -->
+To prepare all dataset at one time, you can just run:
 ```
 source prepare_data.sh
 ```
@@ -75,7 +76,8 @@ datasets
 ```
 
 ### pretrain preparation
-All datasets can be downloaded [here](https://drive.google.com/drive/folders/1XmTj18Abjv2FUizPb2zqvImrDmScIYn6?usp=sharing). To prepare all pretrain models at one time, you can just run:
+<!-- All datasets can be downloaded [here](https://drive.google.com/drive/folders/1XmTj18Abjv2FUizPb2zqvImrDmScIYn6?usp=sharing).  -->
+To prepare all pretrain models at one time, you can just run:
 ```
 source prepare_pretrainmodel.sh
 ```
