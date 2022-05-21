@@ -60,22 +60,22 @@ source prepare_data.sh
 
 The data directory structure is shown as follows. 
 ```
-./
-└── datasets/
-    ├── ETT-data
-    │   ├── ETTh1.csv
-    │   ├── ETTh2.csv
-    │   └── ETTm1.csv
-    ├── financial
-    │   ├── electricity.txt
-    │   ├── exchange_rate.txt
-    │   ├── solar_AL.txt
-    │   └── traffic.txt
-    └── PEMS
-        ├── PEMS03.npz
-        ├── PEMS04.npz
-        ├── PEMS07.npz
-        └── PEMS08.npz
+datasets
+ ┣ ETT-data
+ ┃ ┣ ETTh1.csv
+ ┃ ┣ ETTh2.csv
+ ┃ ┗ ETTm1.csv
+ ┣ PEMS
+ ┃ ┣ PEMS03.npz
+ ┃ ┣ PEMS04.npz
+ ┃ ┣ PEMS07.npz
+ ┃ ┗ PEMS08.npz
+ ┗ financial
+ ┃ ┣ electricity.txt
+ ┃ ┣ exchange_rate.txt
+ ┃ ┣ solar_AL.txt
+ ┃ ┗ traffic.txt
+ 
 ```
 
 ### pretrain preparation
@@ -89,7 +89,124 @@ source prepare_pretrainmodel.sh
 
 We follow the same settings of [StemGNN](https://github.com/microsoft/StemGNN) for PEMS 03, 04, 07, 08 datasets, [MTGNN](https://github.com/nnzhan/MTGNN) for Solar, electricity, traffic, financial datasets, [Informer](https://github.com/zhouhaoyi/Informer2020) for ETTH1, ETTH2, ETTM1 datasets. The detailed training commands are given as follows.
 
+```
+checkpoint
+ ┣ ETTh1
+ ┃ ┣ multi
+ ┃ ┃ ┣ seq168
+ ┃ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┃ ┣ seq24
+ ┃ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┃ ┣ seq336
+ ┃ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┃ ┣ seq48
+ ┃ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┃ ┗ seq720
+ ┃ ┃ ┃ ┗ checkpoint.pth
+ ┃ ┗ single
+ ┃ ┃ ┣ seq168
+ ┃ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┃ ┣ seq24
+ ┃ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┃ ┣ seq336
+ ┃ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┃ ┣ seq48
+ ┃ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┃ ┗ seq720
+ ┃ ┃ ┃ ┗ bestmodel.pth
+ ┣ ETTh2
+ ┃ ┣ multi
+ ┃ ┃ ┣ seq168
+ ┃ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┃ ┣ seq24
+ ┃ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┃ ┣ seq336
+ ┃ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┃ ┣ seq48
+ ┃ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┃ ┗ seq720
+ ┃ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┗ single
+ ┃ ┃ ┣ seq168
+ ┃ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┃ ┣ seq24
+ ┃ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┃ ┣ seq336
+ ┃ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┃ ┣ seq48
+ ┃ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┃ ┗ seq720
+ ┃ ┃ ┃ ┗ bestmodel.pth
+ ┣ ETTm1
+ ┃ ┣ multi
+ ┃ ┃ ┣ seq24
+ ┃ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┃ ┣ seq288
+ ┃ ┃ ┃ ┗ checkpoint.pth
+ ┃ ┃ ┣ seq48
+ ┃ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┃ ┣ seq672
+ ┃ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┃ ┗ seq96
+ ┃ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┗ single
+ ┃ ┃ ┣ seq24
+ ┃ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┃ ┣ seq288
+ ┃ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┃ ┣ seq48
+ ┃ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┃ ┣ seq672
+ ┃ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┃ ┗ seq96
+ ┃ ┃ ┃ ┗ bestmodel.pth
+ ┣ PEMS
+ ┃ ┣ 03
+ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┣ 04
+ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┣ 07
+ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┗ 08
+ ┃ ┃ ┗ bestmodel.pth
+ ┣ electricity
+ ┃ ┣ seq12
+ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┣ seq24
+ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┣ seq3
+ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┗ seq6
+ ┃ ┃ ┗ bestmodel.pth
+ ┣ exchange
+ ┃ ┣ seq12
+ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┣ seq24
+ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┣ seq3
+ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┗ seq6
+ ┃ ┃ ┗ bestmodel.pth
+ ┣ solar
+ ┃ ┣ seq12
+ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┣ seq24
+ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┣ seq3
+ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┗ seq6
+ ┃ ┃ ┗ bestmodel.pth
+ ┗ traffic
+ ┃ ┣ seq12
+ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┣ seq24
+ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┣ seq3
+ ┃ ┃ ┗ bestmodel.pth
+ ┃ ┗ seq6
+ ┃ ┃ ┗ bestmodel.pth
 
+```
 
 
 #### For Solar dataset:
