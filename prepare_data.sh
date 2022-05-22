@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 pip install gdown
-
+pip install --upgrade --no-cache-dir gdown
 mkdir -p datasets
 cd datasets
 
@@ -31,4 +31,4 @@ gdown "https://drive.google.com/uc?id=1USaH9O8t0ymTNsiPMQj628mOPgKIyepB"
 gdown "https://drive.google.com/uc?id=1SgU9QC_pEYHKOaTpiyGYYT-rV8dh2EeK"
 cd ..
 
-cd ..
+

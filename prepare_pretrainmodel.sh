@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 pip install gdown
-
+pip install --upgrade --no-cache-dir gdown
 mkdir -p checkpoints
 cd checkpoints
 
