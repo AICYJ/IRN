@@ -205,7 +205,10 @@ checkpoints
 ### (Very Important)Precautions for testing pretrain models
 
 Since the pretrain model was trained by using 8 gpus, these gpus are assigned differently for each parameter, so we need to test using 8 gpus to prevent errors.
-
+GPU setting command is as below.
+```
+export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
+```
 
 ### Run testing code
 
