@@ -95,7 +95,7 @@ checkpoints
  ┃ ┃ ┣ seq48
  ┃ ┃ ┃ ┗ bestmodel.pth
  ┃ ┃ ┗ seq720
- ┃ ┃ ┃ ┗ checkpoint.pth
+ ┃ ┃ ┃ ┗ bestmodel.pth
  ┃ ┗ single
  ┃ ┃ ┣ seq168
  ┃ ┃ ┃ ┗ bestmodel.pth
@@ -135,7 +135,7 @@ checkpoints
  ┃ ┃ ┣ seq24
  ┃ ┃ ┃ ┗ bestmodel.pth
  ┃ ┃ ┣ seq288
- ┃ ┃ ┃ ┗ checkpoint.pth
+ ┃ ┃ ┃ ┗ bestmodel.pth
  ┃ ┃ ┣ seq48
  ┃ ┃ ┃ ┗ bestmodel.pth
  ┃ ┃ ┣ seq672
