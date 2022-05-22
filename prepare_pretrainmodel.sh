@@ -27,7 +27,6 @@ cd ..
 
 mkdir -p 08
 cd 08
-https://drive.google.com/file/d/1oBJjtUEN4SbeN6M1c-EZVKfxaPHKFz0q/view?usp=sharing
 gdown "https://drive.google.com/uc?id=1oBJjtUEN4SbeN6M1c-EZVKfxaPHKFz0q"
 
 cd ..
@@ -48,7 +47,7 @@ cd ..
 
 mkdir -p seq48
 cd seq48
-gdown "https://drive.google.com/uc?id=15wW3sX1kAoTlxHsxdLxXvihcAm_Ln3UB"
+gdown "https://drive.google.com/uc?id=1J_b6C0fsVAaeTOl546wU7go_TGSD5OhE"
 
 cd ..
 
@@ -69,7 +68,7 @@ cd ..
 
 mkdir -p seq720
 cd seq720
-gdown "https://drive.google.com/uc?id=1B7wu-pgYDQhuDFARhE4NfWrwiRP5kPy9"
+gdown "https://drive.google.com/uc?id=1izPRaS1x6ZENTZJTzPTghqbP6-K11RCe"
 
 cd ..
 
@@ -124,7 +123,7 @@ cd multi
 
 mkdir -p seq24
 cd seq24
-gdown "https://drive.google.com/uc?id=1FNlYsB1im4_HaHX74UOaofVn8CziHaeO"
+gdown "https://drive.google.com/uc?id=1vPZEhXURA8fFJk-EE9ZSWmkelqn1J75D"
 
 cd ..
 
@@ -227,7 +226,7 @@ cd ..
 
 mkdir -p seq288
 cd seq288
-gdown "https://drive.google.com/uc?id=1449MNyLdVzS8ngOaO5ao0BNDqeuRAydd"
+gdown "https://drive.google.com/uc?id=1Bg4lFRtrYyERGXhxl0yrzmsJd9CG8-pC"
 
 cd ..
 

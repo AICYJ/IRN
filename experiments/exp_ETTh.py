@@ -449,3 +449,20 @@ class Exp_ETTh(Exp_Basic):
         else:
             print('Error!')
 
+
+def load_model(model):
+    # if not model_dir:
+    #     return
+    file_name = os.path.join(model_dir, model_name+str(horizon)+'.bin') 
+    # file_name='/home/gkdlfnddy/project/time/SCINet/exp/ETT_checkpoints/SCINet_ETTh1_ftM_sl48_ll24_pl24_lr0.003_bs8_hid4.0_s1_l3_dp0.5_invFalse_itr0/ETTh10.3493125443326025624.bin'
+
+    if not os.path.exists(file_name):
+        return
+    with open(file_name, 'rb') as f:
+        checkpoint = torch.load(f, map_location=lambda storage, loc: storage)
+        print('This model was trained for {} epochs'.format(checkpoint['epoch']))
+        model.load_state_dict(checkpoint['model'])
+        epoch = checkpoint['epoch']
+        lr = checkpoint['lr']
+        print('loaded the model...', file_name, 'now lr:', lr, 'now epoch:', epoch)
+    return model, lr, epoch
