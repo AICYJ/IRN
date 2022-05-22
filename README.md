@@ -1,6 +1,6 @@
 # IRN
 
-This is the original PyTorch implementation of the following work: [Irregularity Reflection Neural Network for Multivariate Time Series Forecasting](https://arxiv.org/pdf/2106.09305.pdf). If you find this repository useful for your work, please consider citing it as follows:
+This is the original PyTorch implementation of the following work: **Irregularity Reflection Neural Network for Multivariate Time Series Forecasting**. If you find this repository useful for your work, please consider citing it as follows:
 
 ## Features
 - [x] Support **11** popular time-series forecasting datasets.  
