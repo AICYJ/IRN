@@ -81,15 +81,7 @@ To prepare all pretrain models at one time, you can just run:
 ```
 source prepare_pretrainmodel.sh
 ```
-### (Very Important)Precautions for testing pretrain models
-
-Since the pretrain model was trained by using 8 gpus, these gpus are assigned differently for each parameter, so we need to test using 8 gpus to prevent errors.
-
-
-### Run testing code
-
-We follow the same settings of [StemGNN](https://github.com/microsoft/StemGNN) for PEMS 03, 04, 07, 08 datasets, [MTGNN](https://github.com/nnzhan/MTGNN) for Solar, electricity, traffic, financial datasets, [Informer](https://github.com/zhouhaoyi/Informer2020) for ETTH1, ETTH2, ETTM1 datasets. The detailed training commands are given as follows.
-
+The result of above shell script is as below.
 ```
 checkpoints
  ┣ ETTh1
@@ -208,6 +200,17 @@ checkpoints
  ┃ ┃ ┗ bestmodel.pth
 
 ```
+
+
+### (Very Important)Precautions for testing pretrain models
+
+Since the pretrain model was trained by using 8 gpus, these gpus are assigned differently for each parameter, so we need to test using 8 gpus to prevent errors.
+
+
+### Run testing code
+
+We follow the same settings of [StemGNN](https://github.com/microsoft/StemGNN) for PEMS 03, 04, 07, 08 datasets, [MTGNN](https://github.com/nnzhan/MTGNN) for Solar, electricity, traffic, financial datasets, [Informer](https://github.com/zhouhaoyi/Informer2020) for ETTH1, ETTH2, ETTM1 datasets. The detailed training commands are given as follows.
+
 
 
 
