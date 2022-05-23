@@ -1,7 +1,13 @@
 # IRN
 
 This is the original PyTorch implementation of the following work: **Irregularity Reflection Neural Network for Multivariate Time Series Forecasting**. If you find this repository useful for your work, please consider citing it as follows:
-
+## Content
+ - Dataset
+ - Requirements
+ - Dataset preparation
+ - Pretrain preparation
+ - Run Train code
+ - Run Pretrain testing code
 ## Features
 - [x] Support **11** popular time-series forecasting datasets.  
 
@@ -201,6 +207,286 @@ checkpoints
 
 ```
 
+## Run Train code
+
+#### For ETTH1 dataset:
+
+multivariate, out 24
+```
+python run_ETTh.py --data ETTh1 --features M  --seq_len 168 --label_len 24 --pred_len 24 --hidden-size 0.5 --stacks 1 --levels 3 --lr 1e-3 --batch_size 64 --dropout 0.5 --model_name etth1_M_I48_O24_lr3e-3_bs8_dp0.5_h4_s1l3 --pretrain_path ./checkpoints/ETTh1/multi/seq24/bestmodel.pth
+```
+multivariate, out 48
+```
+python run_ETTh.py --data ETTh1 --features M  --seq_len 96 --label_len 48 --pred_len 48 --hidden-size 4 --stacks 1 --levels 3 --lr 0.003 --batch_size 16 --dropout 0.25 --model_name etth1_M_I96_O48_lr0.009_bs16_dp0.25_h4_s1l --pretrain_path ./checkpoints/ETTh1/multi/seq48/bestmodel.pth
+```
+multivariate, out 168
+```
+python run_ETTh.py --data ETTh1 --features M  --seq_len 336 --label_len 168 --pred_len 168 --hidden-size 4 --stacks 1 --levels 3 --lr 5e-4 --batch_size 32 --dropout 0.5 --model_name etth1_M_I336_O168_lr5e-4_bs32_dp0.5_h4_s1l3 --pretrain_path ./checkpoints/ETTh1/multi/seq168/bestmodel.pth
+```
+multivariate, out 336
+```
+python run_ETTh.py --data ETTh1 --features M  --seq_len 336 --label_len 336 --pred_len 336 --hidden-size 1 --stacks 1 --levels 4 --lr 6e-4 --batch_size 512 --dropout 0.5 --model_name etth1_M_I336_O336_lr1e-4_bs512_dp0.5_h1_s1l4 --pretrain_path ./checkpoints/ETTh1/multi/seq336/bestmodel.pth
+```
+multivariate, out 720
+```
+python run_ETTh.py --data ETTh1 --features M  --seq_len 736 --label_len 720 --pred_len 720 --hidden-size 1 --stacks 1 --levels 5 --lr 5e-5 --batch_size 64 --dropout 0.5 --model_name etth1_M_I736_O720_lr5e-5_bs256_dp0.5_h1_s1l5 --pretrain_path ./checkpoints/ETTh1/multi/seq720/bestmodel.pth
+```
+Univariate, out 24
+```
+python run_ETTh.py --data ETTh1 --features S  --seq_len 64 --label_len 24 --pred_len 24 --hidden-size 8 --stacks 1 --levels 3 --lr 0.007 --batch_size 64 --dropout 0.26 --model_name etth1_S_I64_O24_lr0.007_bs64_dp0.25_h8_s1l3 --pretrain_path ./checkpoints/ETTh1/single/seq24/bestmodel.pth
+```
+Univariate, out 48
+```
+python run_ETTh.py --data ETTh1 --features S  --seq_len 720 --label_len 48 --pred_len 48 --hidden-size 4 --stacks 1 --levels 4 --lr 0.0001 --batch_size 8 --dropout 0.5 --model_name etth1_S_I720_O48_lr0.0001_bs8_dp0.5_h4_s1l4 --pretrain_path ./checkpoints/ETTh1/single/seq48/bestmodel.pth
+```
+Univariate, out 168
+```
+python run_ETTh.py --data ETTh1 --features S  --seq_len 720 --label_len 168 --pred_len 168 --hidden-size 4 --stacks 1 --levels 4 --lr 5e-5 --batch_size 8 --dropout 0.5 --model_name etth1_S_I720_O168_lr5e-5_bs8_dp0.5_h4_s1l4 --pretrain_path ./checkpoints/ETTh1/single/seq168/bestmodel.pth
+```
+Univariate, out 336
+```
+python run_ETTh.py --data ETTh1 --features S  --seq_len 720 --label_len 336 --pred_len 336 --hidden-size 1 --stacks 1 --levels 4 --lr 7e-4 --batch_size 128 --dropout 0.5 --model_name etth1_S_I720_O336_lr1e-3_bs128_dp0.5_h1_s1l4 --pretrain_path ./checkpoints/ETTh1/single/seq336/bestmodel.pth
+```
+Univariate, out 720
+```
+python run_ETTh.py --data ETTh1 --features S  --seq_len 736 --label_len 720 --pred_len 720 --hidden-size 4 --stacks 1 --levels 5 --lr 1e-4 --batch_size 32 --dropout 0.5 --model_name etth1_S_I736_O720_lr1e-5_bs32_dp0.5_h4_s1l5 --pretrain_path ./checkpoints/ETTh1/single/seq720/bestmodel.pth
+```
+
+#### For ETTH2 dataset:
+
+multivariate, out 24
+```
+python run_ETTh.py --data ETTh2 --features M  --seq_len 48 --label_len 24 --pred_len 24 --hidden-size 8 --stacks 1 --levels 3 --lr 0.007 --batch_size 16 --dropout 0.25 --model_name etth2_M_I48_O24_lr7e-3_bs16_dp0.25_h8_s1l3 --pretrain_path ./checkpoints/ETTh2/multi/seq24/bestmodel.pth
+```
+multivariate, out 48
+```
+python run_ETTh.py --data ETTh2 --features M  --seq_len 96 --label_len 48 --pred_len 48 --hidden-size 4 --stacks 1 --levels 4 --lr 0.007 --batch_size 16 --dropout 0.5 --model_name etth2_M_I96_O48_lr7e-3_bs4_dp0.5_h4_s1l4 --pretrain_path ./checkpoints/ETTh2/multi/seq48/bestmodel.pth
+```
+multivariate, out 168
+```
+python run_ETTh.py --data ETTh2 --features M  --seq_len 336 --label_len 168 --pred_len 168 --hidden-size 0.5 --stacks 1 --levels 4 --lr 5e-5 --batch_size 16 --dropout 0.5 --model_name etth2_M_I336_O168_lr5e-5_bs16_dp0.5_h0.5_s1l4 --pretrain_path ./checkpoints/ETTh2/multi/seq168/bestmodel.pth
+```
+multivariate, out 336
+```
+python run_ETTh.py --data ETTh2 --features M  --seq_len 336 --label_len 336 --pred_len 336 --hidden-size 1 --stacks 1 --levels 4 --lr 5e-5 --batch_size 128 --dropout 0.5 --model_name etth2_M_I336_O336_lr5e-5_bs128_dp0.5_h1_s1l4 --pretrain_path ./checkpoints/ETTh2/multi/seq336/bestmodel.pth
+```
+multivariate, out 720
+```
+python run_ETTh.py --data ETTh2 --features M  --seq_len 736 --label_len 720 --pred_len 720 --hidden-size 4 --stacks 1 --levels 5 --lr 3e-5 --batch_size 128 --dropout 0.5 --model_name etth2_M_I736_O720_lr1e-5_bs64_dp0.5_h4_s1l5 --pretrain_path ./checkpoints/ETTh2/multi/seq720/bestmodel.pth
+```
+Univariate, out 24
+```
+python run_ETTh.py --data ETTm1 --features S  --seq_len 96 --label_len 24 --pred_len 24 --hidden-size 4 --stacks 1 --levels 4 --lr 0.001 --batch_size 8 --dropout 0.3 --model_name ettm1_S_I96_O24_lr1e-3_bs8_dp0_h4_s1l4 --pretrain_path ./checkpoints/ETTh2/single/seq24/bestmodel.pth
+```
+Univariate, out 48
+```
+python run_ETTh.py --data ETTh2 --features S  --seq_len 96 --label_len 48 --pred_len 48 --hidden-size 4 --stacks 2 --levels 4 --lr 0.0007 --batch_size 32 --dropout 0.5 --model_name etth2_S_I96_O48_lr1e-3_bs32_dp0.5_h4_s2l4 --pretrain_path ./checkpoints/ETTh2/single/seq48/bestmodel.pth
+```
+Univariate, out 168
+```
+python run_ETTh.py --data ETTh2 --features S  --seq_len 336 --label_len 168 --pred_len 168 --hidden-size 2 --stacks 2 --levels 3 --lr 1e-4 --batch_size 8 --dropout 0.2 --model_name etth2_S_I336_O168_lr1e-4_bs8_dp0_h4_s1l3 --pretrain_path ./checkpoints/ETTh2/single/seq168/bestmodel.pth
+```
+Univariate, out 336
+```
+python run_ETTh.py --data ETTh2 --features S  --seq_len 336 --label_len 336 --pred_len 336 --hidden-size 8 --stacks 1 --levels 3 --lr 7e-4 --batch_size 512 --dropout 0.5 --model_name etth2_S_I336_O336_lr5e-4_bs512_dp0.5_h8_s1l3 --pretrain_path ./checkpoints/ETTh2/single/seq336/bestmodel.pth
+```
+Univariate, out 720
+```
+python run_ETTh.py --data ETTh2 --features S  --seq_len 720 --label_len 720 --pred_len 720 --hidden-size 8 --stacks 1 --levels 3 --lr 1e-4 --batch_size 128 --dropout 0.6 --model_name etth2_S_I736_O720_lr1e-5_bs128_dp0.6_h8_s1l3 --pretrain_path ./checkpoints/ETTh2/single/seq720/bestmodel.pth
+```
+
+#### For ETTM1 dataset:
+
+multivariate, out 24
+```
+python run_ETTh.py --data ETTm1 --features M  --seq_len 48 --label_len 24 --pred_len 24 --hidden-size 4 --stacks 1 --levels 3 --lr 0.005 --batch_size 32 --dropout 0.5 --model_name ettm1_M_I48_O24_lr7e-3_bs16_dp0.25_h8_s1l3 --pretrain_path ./checkpoints/ETTm1/multi/seq24/bestmodel.pth
+```
+multivariate, out 48
+```
+python run_ETTh.py --data ETTm1 --features M  --seq_len 96 --label_len 48 --pred_len 48 --hidden-size 4 --stacks 2 --levels 4 --lr 0.001 --batch_size 16 --dropout 0.5 --model_name ettm1_M_I96_O48_lr1e-3_bs16_dp0.5_h4_s2l4 --pretrain_path ./checkpoints/ETTm1/multi/seq48/bestmodel.pth
+```
+multivariate, out 96
+```
+python run_ETTh.py --data ETTm1 --features M  --seq_len 384 --label_len 96 --pred_len 96 --hidden-size 0.3 --stacks 2 --levels 4 --lr 5e-5 --batch_size 32 --dropout 0.5 --model_name ettm1_M_I384_O96_lr5e-5_bs32_dp0.5_h0.5_s2l4 --pretrain_path ./checkpoints/ETTm1/multi/seq96/bestmodel.pth
+```
+multivariate, out 288
+```
+python run_ETTh.py --data ETTm1 --features M  --seq_len 672 --label_len 288 --pred_len 288 --hidden-size 4 --stacks 1 --levels 5 --lr 1e-5 --batch_size 32 --dropout 0.5 --model_name ettm1_M_I672_O288_lr1e-5_bs32_dp0.5_h0.5_s1l5 --pretrain_path ./checkpoints/ETTm1/multi/seq288/bestmodel.pth
+```
+multivariate, out 672
+```
+python run_ETTh.py --data ETTm1 --features M  --seq_len 672 --label_len 672 --pred_len 672 --hidden-size 4 --stacks 2 --levels 5 --lr 2e-5 --batch_size 32 --dropout 0.5 --model_name ettm1_M_I672_O672_lr1e-5_bs32_dp0.5_h4_s2l5 --pretrain_path ./checkpoints/ETTm1/multi/seq672/bestmodel.pth
+```
+Univariate, out 24
+```
+python run_ETTh.py --data ETTm1 --features S  --seq_len 96 --label_len 24 --pred_len 24 --hidden-size 4 --stacks 1 --levels 4 --lr 0.001 --batch_size 8 --dropout 0.3 --model_name ettm1_S_I96_O24_lr1e-3_bs8_dp0_h4_s1l4 --pretrain_path ./checkpoints/ETTm1/single/seq24/bestmodel.pth
+```
+Univariate, out 48
+```
+python run_ETTh.py --data ETTm1 --features S  --seq_len 96 --label_len 48 --pred_len 48 --hidden-size 4 --stacks 1 --levels 3 --lr 0.0005 --batch_size 16 --dropout 0.2 --model_name ettm1_S_I96_O48_lr5e-4_bs16_dp0_h4_s1l3 --pretrain_path ./checkpoints/ETTm1/single/seq48/bestmodel.pth
+```
+Univariate, out 96
+```
+python run_ETTh.py --data ETTm1 --features S  --seq_len 384 --label_len 96 --pred_len 96 --hidden-size 2 --stacks 1 --levels 4 --lr 1e-5 --batch_size 8 --dropout 0 --model_name ettm1_S_I384_O96_lr1e-5_bs8_dp0_h2_s1l4 --pretrain_path ./checkpoints/ETTm1/single/seq96/bestmodel.pth
+```
+Univariate, out 288
+```
+python run_ETTh.py --data ETTm1 --features S  --seq_len 384 --label_len 288 --pred_len 288 --hidden-size 4 --stacks 1 --levels 4 --lr 1e-5 --batch_size 64 --dropout 0 --model_name ettm1_S_I384_O288_lr1e-5_bs64_dp0_h4_s1l4 --pretrain_path ./checkpoints/ETTm1/single/seq288/bestmodel.pth
+```
+Univariate, out 672
+```
+python run_ETTh.py --data ETTm1 --features S  --seq_len 672 --label_len 672 --pred_len 672 --hidden-size 1 --stacks 1 --levels 5 --lr 1e-4 --batch_size 32 --model_name ettm1_S_I672_O672_lr1e-4_bs32_dp0.5_h1_s1l5i --pretrain_path ./checkpoints/ETTm1/single/seq672/bestmodel.pth
+```
+
+
+##### ETT Parameter highlights
+
+| Parameter Name | Description                  | Parameter in paper | Default                    |
+| -------------- | ---------------------------- | ------------------ | -------------------------- |
+| root_path      | The root path of subdatasets | N/A                | './datasets/ETT-data/ETT/' |
+| data           | Subdataset                   | N/A                | ETTh1                      |
+| pred_len       | Horizon                      | Horizon            | 48                         |
+| seq_len        | Look-back window             | Look-back window   | 96                         |
+| batch_size     | Batch size                   | batch size         | 32                         |
+| lr             | Learning rate                | learning rate      | 0.0001                     |
+| hidden-size    | hidden expansion             | h                  | 1                          |
+| levels         | SCINet block levels          | L                  | 3                          |
+| stacks         | The number of SCINet blocks  | K                  | 1                          |
+
+
+#### For PEMS dataset (All datasets follow Input 12, Output 12):
+
+pems03
+```
+python run_pems.py --dataset PEMS03 --hidden-size 0.0625 --dropout 0.25 --model_name pems03_h0.0625_dp0.25 --pretrain_path ./checkpoints/PEMS/03/bestmodel.pth
+```
+
+pems04
+```
+python run_pems.py --dataset PEMS04 --hidden-size 0.1 --dropout 0.2 --model_name pems04_h0.0625_dp0 --pretrain_path ./checkpoints/PEMS/04/bestmodel.pth
+```
+
+pems07
+```
+python run_pems.py --dataset PEMS07 --hidden-size 0.08 --dropout 0.25 --window_size 24 --model_name pems07_h0.08_dp0.25 --pretrain_path ./checkpoints/PEMS/07/bestmodel.pth
+```
+
+pems08
+```
+python run_pems.py --dataset PEMS08 --hidden-size 0.5 --dropout 0.25 --model_name pems08_h1_dp0.5 --model_name pems07_h0.08_dp0.25 --pretrain_path ./checkpoints/PEMS/08/bestmodel.pth
+```
+
+##### PEMS Parameter highlights
+
+| Parameter Name | Description             | Parameter in paper | Default |
+| -------------- | ----------------------- | ------------------ | ------- |
+| dataset        | Name of dataset         | N/A                | PEMS08  |
+| horizon        | Horizon                 | Horizon            | 12      |
+| window_size    | Look-back window        | Look-back window   | 12      |
+| hidden-size    | hidden expansion        | h                  | 1       |
+| levels         | SCINet block levels     | L                  | 2       |
+| stacks         | The number of SCINet block| K                | 1       |
+
+
+
+
+#### For Exchange rate dataset:
+
+predict 3 
+```
+python run_financial.py --dataset_name exchange_rate --window_size 168 --horizon 3 --hidden-size 0.125 --lastWeight 0.5 --stacks 1 --levels 3 --lr 5e-3 --dropout 0.5 --batch_size 4 --model_name ex_I168_o3_lr5e-3_bs4_dp0.5_h0.125_s1l3_w0.5 --epochs 150 --pretrain_path ./checkpoints/exchange/seq3/bestmodel.pth
+```
+predict 6
+```
+python run_financial.py --dataset_name exchange_rate --window_size 168 --horizon 6 --hidden-size 0.125 --lastWeight 0.5 --stacks 1 --levels 3 --lr 5e-3 --dropout 0.5 --batch_size 4 --model_name ex_I168_o6_lr5e-3_bs4_dp0.5_h0.125_s1l3_w0.5 --epochs 150 --pretrain_path ./checkpoints/exchange/seq6/bestmodel.pth
+```
+predict 12
+```
+python run_financial.py --dataset_name exchange_rate --window_size 168 --horizon 12 --hidden-size 0.125 --lastWeight 0.5 --stacks 1 --levels 3 --lr 5e-3 --dropout 0.5 --batch_size 4 --model_name ex_I168_o12_lr5e-3_bs4_dp0.5_h0.125_s1l3_w0.5_single_ex --epochs 150 --pretrain_path ./checkpoints/exchange/seq12/bestmodel.pth
+```
+predict 24
+```
+python run_financial.py --dataset_name exchange_rate --window_size 168 --horizon 24 --hidden-size 0.125 --lastWeight 0.5 --stacks 1 --levels 3 --lr 7e-3 --dropout 0.5 --batch_size 4 --model_name ex_I168_o24_lr7e-3_bs4_dp0.5_h0.125_s1l3_w0.5 --epochs 150 --pretrain_path ./checkpoints/exchange/seq24/bestmodel.pth
+```
+
+
+#### For Solar dataset:
+
+predict 3 
+```
+python run_financial.py --dataset_name solar_AL --window_size 160 --horizon 3 --hidden-size 1  --lastWeight 0.5 --stacks 2 --levels 4 --lradj 2 --lr 1e-4 --dropout 0.25 --batch_size 256 --model_name so_I160_o3_lr1e-4_bs256_dp0.25_h1_s2l4_w0.5 --pretrain_path ./checkpoints/solar/seq3/bestmodel.pth
+```
+predict 6
+```
+python run_financial.py --dataset_name solar_AL --window_size 160 --horizon 6 --hidden-size 0.5 --lastWeight 0.5 --stacks 2 --levels 4 --lradj 2 --lr 1e-4 --dropout 0.25 --batch_size 256 --model_name so_I160_o6_lr1e-4_bs256_dp0.25_h0.5_s2l4_w0.5  --pretrain_path ./checkpoints/solar/seq6/bestmodel.pth
+```
+predict 12
+```
+python run_financial.py --dataset_name solar_AL --window_size 160 --horizon 12 --hidden-size 2 --lastWeight 0.5 --stacks 2 --levels 4 --lradj 2 --lr 1e-4 --dropout 0.25 --batch_size 812 --model_name so_I160_o12_lr1e-4_bs1024_dp0.25_h2_s2l4_w0.5  --pretrain_path ./checkpoints/solar/seq12/bestmodel.pth
+```
+predict 24
+```
+python run_financial.py --dataset_name solar_AL --window_size 160 --horizon 24 --hidden-size 2 --lastWeight 0.5 --stacks 1 --levels 4 --lradj 2 --lr 1e-4 --dropout 0.25 --batch_size 256 --model_name so_I160_o24_lr1e-4_bs256_dp0.25_h1_s1l4_w0.5 --pretrain_path ./checkpoints/solar/seq24/bestmodel.pth
+```
+
+#### For Traffic dataset (warning: 20,000MiB+ memory usage!):
+
+predict 3 
+```
+python run_financial.py --dataset_name traffic --window_size 168 --horizon 3 --hidden-size 1 --single_step 1 --stacks 2 --levels 3 --lr 5e-4 --dropout 0.5 --batch_size 16 --model_name traf_I168_o3_lr5e-4_bs16_dp0.5_h1_s2l3_w1.0 --pretrain_path ./checkpoints/traffic/seq3/bestmodel.pth
+```
+predict 6
+```
+python run_financial.py --dataset_name traffic --window_size 168 --horizon 6 --hidden-size 1 --single_step 1 --stacks 2 --levels 3 --lr 5e-4 --dropout 0.25 --batch_size 16 --model_name traf_I168_o6_lr5e-4_bs16_dp0.25_h2_s1l3_w1.0 --pretrain_path ./checkpoints/traffic/seq6/bestmodel.pth
+```
+predict 12
+```
+python run_financial.py --dataset_name traffic --window_size 168 --horizon 12 --hidden-size 0.5 --single_step 1 --stacks 2 --levels 3 --lr 5e-4 --dropout 0.25 --batch_size 16 --model_name traf_I168_o12_lr5e-4_bs16_dp0.25_h0.5_s2l3_w1.0_short --pretrain_path ./checkpoints/traffic/seq12/bestmodel.pth
+```
+predict 24
+```
+python run_financial.py --dataset_name traffic --window_size 168 --horizon 24 --hidden-size 1 --single_step 1 --stacks 2 --levels 2 --lr 5e-4 --dropout 0.5 --batch_size 16 --model_name traf_I168_o24_lr5e-4_bs16_dp0.5_h2_s2l2_w1.0  --pretrain_path ./checkpoints/traffic/seq24/bestmodel.pth
+```
+
+
+#### For Electricity dataset:
+
+predict 3
+``` 
+python run_financial.py --dataset_name electricity --window_size 168 --horizon 3 --hidden-size 8 --single_step 1 --stacks 2 --levels 3 --lr 9e-3 --dropout 0 --batch_size 32 --model_name ele_I168_o3_lr9e-3_bs32_dp0_h8_s2l3_w0.5 --groups 321 --pretrain_path ./checkpoints/electricity/seq3/bestmodel.pth
+```
+predict 6
+```
+python run_financial.py --dataset_name electricity --window_size 168 --horizon 6 --hidden-size 8 --single_step 1 --stacks 2 --levels 3 --lr 9e-3 --dropout 0 --batch_size 32 --model_name ele_I168_o6_lr9e-3_bs32_dp0_h8_s2l3_w0.5 --groups 321 --pretrain_path ./checkpoints/electricity/seq6/bestmodel.pth
+```
+predict 12
+```
+python run_financial.py --dataset_name electricity --window_size 168 --horizon 12 --hidden-size 8 --single_step 1 --stacks 2 --levels 3 --lr 9e-3 --dropout 0 --batch_size 32 --model_name ele_I168_o12_lr9e-3_bs32_dp0_h8_s2l3_w0.5_just_gr --groups 321 --pretrain_path ./checkpoints/electricity/seq12/bestmodel.pth
+```
+predict 24
+```
+python run_financial.py --dataset_name electricity --window_size 168 --horizon 24 --hidden-size 8 --single_step 1 --stacks 2 --levels 3 --lr 9e-3 --dropout 0 --batch_size 32 --model_name ele_I168_o24_lr9e-3_bs32_dp0_h8_s2l3_w0.5 --groups 321 --pretrain_path ./checkpoints/electricity/seq24/bestmodel.pth
+```
+
+
+
+##### Exchange, Solar, Traffic, and Electricity Parameter highlights
+
+| Parameter Name | Description               | Parameter in paper      | Default                                |
+| -------------- | ------------------------- | ----------------------- | -------------------------------------- |
+| dataset_name   | Data name                 | N/A                     | exchange_rate                          |
+| horizon        | Horizon                   | Horizon                 | 3                                      |
+| window_size    | Look-back window          | Look-back window        | 168                                    |
+| batch_size     | Batch size                | batch size              | 8                                      |
+| lr             | Learning rate             | learning rate           | 5e-3                                   |
+| hidden-size    | hidden expansion          | h                       | 1                                      |
+| levels         | SCINet block levels       | L                       | 3                                      |
+| stacks         | The number of SCINet block| K                       | 1                                      |
+| lastweight     | Loss weight of the last frame| Loss weight ($\lambda$) | 1.0                                 |
+
+## Run Pretrain testing code
+
+We follow the same settings of [StemGNN](https://github.com/microsoft/StemGNN) for PEMS 03, 04, 07, 08 datasets, [MTGNN](https://github.com/nnzhan/MTGNN) for Solar, electricity, traffic, financial datasets, [Informer](https://github.com/zhouhaoyi/Informer2020) for ETTH1, ETTH2, ETTM1 datasets. The detailed training commands are given as follows. Finally, we mainly refer to [SCINET](https://github.com/cure-lab/SCINet) which conducts all experiments.
 
 ### (Very Important)Precautions for testing pretrain models
 
@@ -209,13 +495,6 @@ GPU setting command is as below.
 ```
 export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
 ```
-
-### Run testing code
-
-We follow the same settings of [StemGNN](https://github.com/microsoft/StemGNN) for PEMS 03, 04, 07, 08 datasets, [MTGNN](https://github.com/nnzhan/MTGNN) for Solar, electricity, traffic, financial datasets, [Informer](https://github.com/zhouhaoyi/Informer2020) for ETTH1, ETTH2, ETTM1 datasets. The detailed training commands are given as follows.
-
-
-
 
 #### For ETTH1 dataset:
 
