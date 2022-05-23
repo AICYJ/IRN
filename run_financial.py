@@ -34,9 +34,10 @@ parser.add_argument('--single_step_output_One', type=int, default=0, help='only 
 parser.add_argument('--lastWeight', type=float, default=1.0,help='Loss weight lambda on the final step')
 
 ### -------  training settings --------------  
-parser.add_argument('--train', type=bool, default=False)
+parser.add_argument('--train_model', type=str, help='train model type: c is the channel, F is the Filter size',default='IRN_c_6_F_3')
+parser.add_argument('--train', type=bool, default=True)
 parser.add_argument('--resume', type=bool, default=False)
-parser.add_argument('--evaluate', type=bool, default=True)
+parser.add_argument('--evaluate', type=str, default='True')
 parser.add_argument('--log_interval', type=int, default=2000, metavar='N',
                     help='report interval')
 parser.add_argument('--save', type=str, default='model/model.pt',
@@ -83,6 +84,10 @@ if __name__ == '__main__':
 
     Exp=Exp_financial
     exp=Exp(args)
+    if str(args.evaluate).upper() == 'FALSE':
+        args.evaluate=False
+    else:
+        args.evaluate=True
 
     if args.evaluate:
         data=exp._get_data()

@@ -7,6 +7,7 @@ import pandas as pd
 import numpy as np
 from torch.utils.tensorboard import SummaryWriter
 
+
 parser = argparse.ArgumentParser(description='IRN on pems datasets')
 
 ### -------  dataset settings --------------
@@ -31,9 +32,9 @@ parser.add_argument('--valid_length', type=float, default=2)
 parser.add_argument('--test_length', type=float, default=2)
 
 ### -------  training settings --------------  
-parser.add_argument('--train', type=bool, default=False)
+parser.add_argument('--train', type=bool, default=True)
 parser.add_argument('--resume', type=bool, default=False)
-parser.add_argument('--evaluate', type=bool, default=True)
+parser.add_argument('--evaluate', type=str, default='True')
 parser.add_argument('--finetune', type=bool, default=False)
 parser.add_argument('--validate_freq', type=int, default=1)
 
@@ -49,7 +50,7 @@ parser.add_argument('--lradj', type=int, default=1,help='adjust learning rate')
 parser.add_argument('--weight_decay', type=float, default=1e-5)
 parser.add_argument('--model_name', type=str, default='SCINet')
 parser.add_argument('--pretrain_path', type=str, default='./checkpoint/PEMS/08/bestmodel.pth')
-
+parser.add_argument('--train_model', type=str, help='train model type: c is the channel, F is the Filter size',default='IRN_c_6_F_3')
 
 
 ### -------  model settings --------------  
@@ -68,6 +69,10 @@ parser.add_argument('--RIN', type=bool, default=False)
 
 args = parser.parse_args()
 
+
+
+
+
 if __name__ == '__main__':
 
     torch.manual_seed(4321)  # reproducible
@@ -78,7 +83,12 @@ if __name__ == '__main__':
 
     Exp=Exp_pems
     exp=Exp(args)
-
+    print(args.evaluate)
+    if str(args.evaluate).upper() == 'FALSE':
+        args.evaluate=False
+    else:
+        args.evaluate=True
+    print(args.evaluate)
     if args.evaluate:
         before_evaluation = datetime.now().timestamp()
         exp.test()

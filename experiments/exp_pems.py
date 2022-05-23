@@ -16,22 +16,12 @@ from utils.tools import EarlyStopping, adjust_learning_rate, save_model, load_mo
 from metrics.ETTh_metrics import metric
 from torch.utils.tensorboard import SummaryWriter
 from utils.math_utils import evaluate, creatMask
-#just_gr
-# from models.IRN_channel_4_FirstFilter_3 import IRN as IRN_c_4_F_3
-#short
-from models.IRN_channel_6_FirstFilter_3 import IRN as IRN_c_6_F_3
-#short res model
-# from models.IRN_channel_6_residual_FirstFilter_3 import IRN as IRN_c_6_F_3_residual
+
 #720_relu
-# from models.IRN_channel_8_FirstFilter_3 import IRN as IRN_c_8_3
+from models.IRN_channel_8_FirstFilter_3 import IRN as IRN_c_8_F_3
 #long
-# from models.IRN_channel_8_FirstFilter_5 import IRN as IRN_c_8_5
-#just_gr
-# from models.SCINet_gr import SCINet
-#short
-# from models.SCINet_etth_eval_gr_6_mix_short import SCINet
-#short res model
-# from models.SCINet_etth_eval_gr_single_res import SCINet
+from models.IRN_channel_8_FirstFilter_5 import IRN as IRN_c_8_F_5
+
 #720_relu
 # from models.SCINet_etth_eval_gr_6_dilation_res_etth2_720_relu import SCINet
 #long
@@ -54,22 +44,39 @@ class Exp_pems(Exp_Basic):
         elif self.args.dataset == 'PEMS08':
             self.input_dim = 170
             
-        model = IRN_c_6_F_3(
-            output_len=self.args.horizon,
-            input_len=self.args.window_size,
-            input_dim=self.input_dim,
-            hid_size = self.args.hidden_size,
-            num_stacks=self.args.stacks,
-            num_levels=self.args.levels,
-            concat_len = self.args.concat_len,
-            groups = self.args.groups,
-            kernel = self.args.kernel,
-            dropout = self.args.dropout,
-            single_step_output_One = self.args.single_step_output_One,
-            positionalE = self.args.positionalEcoding,
-            modified = True,
-            RIN=self.args.RIN
-        )
+        
+        if self.args.train_model == 'IRN_c_8_F_3':
+            model = IRN_c_8_F_3(
+                output_len=self.args.horizon,
+                input_len=self.args.window_size,
+                input_dim=self.input_dim,
+                hid_size = self.args.hidden_size,
+                num_stacks=self.args.stacks,
+                num_levels=self.args.levels,
+                concat_len = self.args.concat_len,
+                groups = self.args.groups,
+                kernel = self.args.kernel,
+                dropout = self.args.dropout,
+                single_step_output_One = self.args.single_step_output_One,
+                positionalE = self.args.positionalEcoding,
+                modified = True,
+                RIN=self.args.RIN)
+        elif self.args.train_model == 'IRN_c_8_F_5':
+            model = IRN_c_8_F_5(
+                output_len=self.args.horizon,
+                input_len=self.args.window_size,
+                input_dim=self.input_dim,
+                hid_size = self.args.hidden_size,
+                num_stacks=self.args.stacks,
+                num_levels=self.args.levels,
+                concat_len = self.args.concat_len,
+                groups = self.args.groups,
+                kernel = self.args.kernel,
+                dropout = self.args.dropout,
+                single_step_output_One = self.args.single_step_output_One,
+                positionalE = self.args.positionalEcoding,
+                modified = True,
+                RIN=self.args.RIN)
 
         print(model)
         return model
@@ -344,6 +351,7 @@ class Exp_pems(Exp_Basic):
                 test_metrics = self.validate(self.model, epoch,  forecast_loss, test_loader, self.args.norm_method, test_normalize_statistic,
                             node_cnt, self.args.window_size, self.args.horizon,
                             writer, result_file=None, test=True)
+                createDirectory(os.path.join('./exp/PEMS', self.args.dataset))
                 if best_validate_mae > performance_metrics['mae']:
                     best_validate_mae = performance_metrics['mae']
                     is_best_for_now = True
@@ -354,7 +362,7 @@ class Exp_pems(Exp_Basic):
                 if best_test_mae > test_metrics['mae']:
                     best_test_mae = test_metrics['mae']
                     #1,1,1,3
-                    log_path=os.path.join('./exp/PEMS', self.args.dataset ,'etth720_relu_hidden0.1_bs16_win_12_dr_0.2_720_relu_.txt')
+                    log_path=os.path.join('./exp/PEMS', self.args.dataset ,'train_log_best.txt')
                     f = open(log_path, 'a')
                     f.write(str(epoch)+str(test_metrics)+'\n')
                     f.close()
@@ -362,13 +370,13 @@ class Exp_pems(Exp_Basic):
                     torch.save(self.model,best_model_path)
                     print('got best test result:', test_metrics)
                 else:
-                    log_path=os.path.join('./exp/PEMS', self.args.dataset ,'etth720_relu_hidden0.1_bs16_win_12_dr_0.2_720_relu_log.txt')
+                    log_path=os.path.join('./exp/PEMS', self.args.dataset ,'train_log_no_best.txt')
                     f = open(log_path, 'a')
                     f.write(str(epoch)+str(test_metrics)+'\n')
                     f.close()
                     best_model_path=os.path.join('./exp/PEMS', self.args.dataset,'bestmodel.pth')
                     torch.save(self.model,best_model_path)
-                createDirectory(os.path.join('./exp/PEMS', self.args.dataset))
+                
                 # save model
                 if is_best_for_now:
                     save_model(epoch, lr, model=self.model, model_dir=self.result_file, model_name=self.args.dataset, horizon=self.args.horizon)

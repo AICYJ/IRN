@@ -21,15 +21,18 @@ from utils.math_utils import smooth_l1_loss,MAPE
 
 
 #just_gr
-# from models.IRN_channel_4_FirstFilter_3 import IRN as IRN_c_4_F_3
+from models.IRN_channel_4_FirstFilter_3 import IRN as IRN_c_4_F_3
 #short
 from models.IRN_channel_6_FirstFilter_3 import IRN as IRN_c_6_F_3
+
+from models.IRN_channel_6_FirstFilter_3_dil import IRN as IRN_c_6_F_3_D
 #short res model
-# from models.IRN_channel_6_residual_FirstFilter_3 import IRN as IRN_c_6_F_3_residual
+from models.IRN_channel_6_residual_FirstFilter_3 import IRN as IRN_c_6_F_3_residual
 #720_relu
-# from models.IRN_channel_8_FirstFilter_3 import IRN as IRN_c_8_3
+from models.IRN_channel_8_FirstFilter_3 import IRN as IRN_c_8_F_3
 #long
-# from models.IRN_channel_8_FirstFilter_5 import IRN as IRN_c_8_5
+from models.IRN_channel_8_FirstFilter_5 import IRN as IRN_c_8_F_5
+
 #just_gr
 # from models.SCINet_gr import SCINet
 #short
@@ -71,22 +74,103 @@ class Exp_financial(Exp_Basic):
         if self.args.dataset_name == 'traffic':
             self.input_dim = 862
             
-        model = IRN_c_6_F_3(
-            output_len=self.args.horizon,
-            input_len=self.args.window_size,
-            input_dim=self.input_dim,
-            hid_size=self.args.hidden_size,
-            num_stacks=self.args.stacks,
-            num_levels=self.args.levels,
-            concat_len=self.args.concat_len,
-            groups=self.args.groups,
-            kernel=self.args.kernel,
-            dropout=self.args.dropout,
-            single_step_output_One=self.args.single_step_output_One,
-            positionalE=self.args.positionalEcoding,
-            modified=True,
-            RIN=self.args.RIN
-        )
+        if self.args.train_model == 'IRN_c_6_F_3':
+            model = IRN_c_6_F_3(
+                output_len=self.args.horizon,
+                input_len=self.args.window_size,
+                input_dim=self.input_dim,
+                hid_size=self.args.hidden_size,
+                num_stacks=self.args.stacks,
+                num_levels=self.args.levels,
+                concat_len=self.args.concat_len,
+                groups=self.args.groups,
+                kernel=self.args.kernel,
+                dropout=self.args.dropout,
+                single_step_output_One=self.args.single_step_output_One,
+                positionalE=self.args.positionalEcoding,
+                modified=True,
+                RIN=self.args.RIN)
+        elif self.args.train_model == 'IRN_c_4_F_3':
+            model = IRN_c_4_F_3(
+                output_len=self.args.horizon,
+                input_len=self.args.window_size,
+                input_dim=self.input_dim,
+                hid_size=self.args.hidden_size,
+                num_stacks=self.args.stacks,
+                num_levels=self.args.levels,
+                concat_len=self.args.concat_len,
+                groups=self.args.groups,
+                kernel=self.args.kernel,
+                dropout=self.args.dropout,
+                single_step_output_One=self.args.single_step_output_One,
+                positionalE=self.args.positionalEcoding,
+                modified=True,
+                RIN=self.args.RIN)
+        elif self.args.train_model == 'IRN_c_6_F_3_residual':
+            model = IRN_c_6_F_3_residual(
+                output_len=self.args.horizon,
+                input_len=self.args.window_size,
+                input_dim=self.input_dim,
+                hid_size=self.args.hidden_size,
+                num_stacks=self.args.stacks,
+                num_levels=self.args.levels,
+                concat_len=self.args.concat_len,
+                groups=self.args.groups,
+                kernel=self.args.kernel,
+                dropout=self.args.dropout,
+                single_step_output_One=self.args.single_step_output_One,
+                positionalE=self.args.positionalEcoding,
+                modified=True,
+                RIN=self.args.RIN)
+        elif self.args.train_model == 'IRN_c_8_F_3':
+            model = IRN_c_8_F_3(
+                output_len=self.args.horizon,
+                input_len=self.args.window_size,
+                input_dim=self.input_dim,
+                hid_size=self.args.hidden_size,
+                num_stacks=self.args.stacks,
+                num_levels=self.args.levels,
+                concat_len=self.args.concat_len,
+                groups=self.args.groups,
+                kernel=self.args.kernel,
+                dropout=self.args.dropout,
+                single_step_output_One=self.args.single_step_output_One,
+                positionalE=self.args.positionalEcoding,
+                modified=True,
+                RIN=self.args.RIN)
+        elif self.args.train_model == 'IRN_c_8_F_5':
+            model = IRN_c_8_F_5(
+                output_len=self.args.horizon,
+                input_len=self.args.window_size,
+                input_dim=self.input_dim,
+                hid_size=self.args.hidden_size,
+                num_stacks=self.args.stacks,
+                num_levels=self.args.levels,
+                concat_len=self.args.concat_len,
+                groups=self.args.groups,
+                kernel=self.args.kernel,
+                dropout=self.args.dropout,
+                single_step_output_One=self.args.single_step_output_One,
+                positionalE=self.args.positionalEcoding,
+                modified=True,
+                RIN=self.args.RIN)
+
+        elif self.args.train_model == 'IRN_c_6_F_3_D':
+            model = IRN_c_6_F_3_D(
+                output_len=self.args.horizon,
+                input_len=self.args.window_size,
+                input_dim=self.input_dim,
+                hid_size=self.args.hidden_size,
+                num_stacks=self.args.stacks,
+                num_levels=self.args.levels,
+                concat_len=self.args.concat_len,
+                groups=self.args.groups,
+                kernel=self.args.kernel,
+                dropout=self.args.dropout,
+                single_step_output_One=self.args.single_step_output_One,
+                positionalE=self.args.positionalEcoding,
+                modified=True,
+                RIN=self.args.RIN)
         print(model)
         return model
     

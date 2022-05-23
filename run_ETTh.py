@@ -43,6 +43,7 @@ parser.add_argument('--single_step_output_One', type=int, default=0)
 parser.add_argument('--lastWeight', type=float, default=1.0)
                                                               
 ### -------  training settings --------------  
+parser.add_argument('--train_model', type=str, help='train model type: c is the channel, F is the Filter size',default='IRN_c_6_F_3')
 parser.add_argument('--cols', type=str, nargs='+', help='file list')
 parser.add_argument('--num_workers', type=int, default=0, help='data loader num workers')
 parser.add_argument('--itr', type=int, default=0, help='experiments times')
@@ -56,7 +57,7 @@ parser.add_argument('--use_amp', action='store_true', help='use automatic mixed 
 parser.add_argument('--save', type=bool, default =True, help='save the output results')
 parser.add_argument('--model_name', type=str, default='etth1_M_I96_O48_lr0.009_bs16_dp0.25_h4_s1l3')
 parser.add_argument('--resume', type=bool, default=False)
-parser.add_argument('--evaluate', type=bool, default=True)
+parser.add_argument('--evaluate', type=str, default='True')
 parser.add_argument('--pretrain_path', type=str, default='/home/gkdlfnddy/project/time/supplementary/IRN/checkpoint/ETTh1/multi/seq24/bestmodel.pth')
 
 
@@ -119,6 +120,10 @@ mae_ = []
 maes_ = []
 mse_ = []
 mses_ = []
+if str(args.evaluate).upper() == 'FALSE':
+    args.evaluate=False
+else:
+    args.evaluate=True
 
 if args.evaluate:
     setting = '{}_{}_ft{}_sl{}_ll{}_pl{}_lr{}_bs{}_hid{}_s{}_l{}_dp{}_inv{}_itr0'.format(args.model,args.data, args.features, args.seq_len, args.label_len, args.pred_len,args.lr,args.batch_size,args.hidden_size,args.stacks, args.levels,args.dropout,args.inverse)

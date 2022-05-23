@@ -14,16 +14,16 @@ from data_process.etth_data_loader import Dataset_ETT_hour, Dataset_ETT_minute, 
 from experiments.exp_basic import Exp_Basic
 from utils.tools import EarlyStopping, adjust_learning_rate, save_model, load_model
 from metrics.ETTh_metrics import metric
-#just_gr
-# from models.IRN_channel_4_FirstFilter_3 import IRN as IRN_c_4_F_3
 #short
 from models.IRN_channel_6_FirstFilter_3 import IRN as IRN_c_6_F_3
 #short res model
-# from models.IRN_channel_6_residual_FirstFilter_3 import IRN as IRN_c_6_F_3_residual
+from models.IRN_channel_6_residual_FirstFilter_3 import IRN as IRN_c_6_F_3_residual
 #720_relu
-# from models.IRN_channel_8_FirstFilter_3 import IRN as IRN_c_8_3
+from models.IRN_channel_8_FirstFilter_3 import IRN as IRN_c_8_F_3
 #long
-# from models.IRN_channel_8_FirstFilter_5 import IRN as IRN_c_8_5
+from models.IRN_channel_8_FirstFilter_5 import IRN as IRN_c_8_F_5
+
+from models.IRN_channel_8_FirstFilter_5_dil_020 import IRN as IRN_c_8_F_5_D_020
 #just_gr
 # from models.SCINet_gr import SCINet
 #short
@@ -48,22 +48,87 @@ class Exp_ETTh(Exp_Basic):
             in_dim = 7
         else:
             print('Error!')
-
-        model = IRN_c_6_F_3(
-            output_len=self.args.pred_len,
-            input_len=self.args.seq_len,
-            input_dim= in_dim,
-            hid_size = self.args.hidden_size,
-            num_stacks=self.args.stacks,
-            num_levels=self.args.levels,
-            concat_len = self.args.concat_len,
-            groups = self.args.groups,
-            kernel = self.args.kernel,
-            dropout = self.args.dropout,
-            single_step_output_One = self.args.single_step_output_One,
-            positionalE = self.args.positionalEcoding,
-            modified = True,
-            RIN=self.args.RIN)
+        if self.args.train_model == 'IRN_c_6_F_3':
+            model = IRN_c_6_F_3(
+                output_len=self.args.pred_len,
+                input_len=self.args.seq_len,
+                input_dim= in_dim,
+                hid_size = self.args.hidden_size,
+                num_stacks=self.args.stacks,
+                num_levels=self.args.levels,
+                concat_len = self.args.concat_len,
+                groups = self.args.groups,
+                kernel = self.args.kernel,
+                dropout = self.args.dropout,
+                single_step_output_One = self.args.single_step_output_One,
+                positionalE = self.args.positionalEcoding,
+                modified = True,
+                RIN=self.args.RIN)
+        elif self.args.train_model == 'IRN_c_6_F_3_residual':
+            model = IRN_c_6_F_3_residual(
+                output_len=self.args.pred_len,
+                input_len=self.args.seq_len,
+                input_dim= in_dim,
+                hid_size = self.args.hidden_size,
+                num_stacks=self.args.stacks,
+                num_levels=self.args.levels,
+                concat_len = self.args.concat_len,
+                groups = self.args.groups,
+                kernel = self.args.kernel,
+                dropout = self.args.dropout,
+                single_step_output_One = self.args.single_step_output_One,
+                positionalE = self.args.positionalEcoding,
+                modified = True,
+                RIN=self.args.RIN)
+        elif self.args.train_model == 'IRN_c_8_F_3':
+            model = IRN_c_8_F_3(
+                output_len=self.args.pred_len,
+                input_len=self.args.seq_len,
+                input_dim= in_dim,
+                hid_size = self.args.hidden_size,
+                num_stacks=self.args.stacks,
+                num_levels=self.args.levels,
+                concat_len = self.args.concat_len,
+                groups = self.args.groups,
+                kernel = self.args.kernel,
+                dropout = self.args.dropout,
+                single_step_output_One = self.args.single_step_output_One,
+                positionalE = self.args.positionalEcoding,
+                modified = True,
+                RIN=self.args.RIN)
+        elif self.args.train_model == 'IRN_c_8_F_5':
+            model = IRN_c_8_F_5(
+                output_len=self.args.pred_len,
+                input_len=self.args.seq_len,
+                input_dim= in_dim,
+                hid_size = self.args.hidden_size,
+                num_stacks=self.args.stacks,
+                num_levels=self.args.levels,
+                concat_len = self.args.concat_len,
+                groups = self.args.groups,
+                kernel = self.args.kernel,
+                dropout = self.args.dropout,
+                single_step_output_One = self.args.single_step_output_One,
+                positionalE = self.args.positionalEcoding,
+                modified = True,
+                RIN=self.args.RIN)
+        elif self.args.train_model == 'IRN_c_8_F_5_D_020':
+            model = IRN_c_8_F_5_D_020(
+                output_len=self.args.pred_len,
+                input_len=self.args.seq_len,
+                input_dim= in_dim,
+                hid_size = self.args.hidden_size,
+                num_stacks=self.args.stacks,
+                num_levels=self.args.levels,
+                concat_len = self.args.concat_len,
+                groups = self.args.groups,
+                kernel = self.args.kernel,
+                dropout = self.args.dropout,
+                single_step_output_One = self.args.single_step_output_One,
+                positionalE = self.args.positionalEcoding,
+                modified = True,
+                RIN=self.args.RIN)
+        
         print(model)
         return model.double()
 
@@ -302,6 +367,8 @@ class Exp_ETTh(Exp_Basic):
                 f.write(f'epochs{epoch}: mae:{test_loss[0]}, maes:{test_loss[1]}, mse:{test_loss[2]}, mses:{test_loss[3]}\n')
                 f.close()
                 best=test_loss[0]
+                best_model_path=os.path.join(path,'bestmodel.pth')
+                torch.save(self.model,best_model_path)
                 save_model(epoch, lr, self.model, path, model_name=self.args.data+str(test_loss[0]), horizon=self.args.pred_len)
             else:
                 log_path=os.path.join(path,'log_normal.txt')

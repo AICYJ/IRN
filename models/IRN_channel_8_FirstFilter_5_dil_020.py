@@ -7,7 +7,6 @@ import torch
 import argparse
 import numpy as np
 
-
 class Splitting(nn.Module):
     def __init__(self):
         super(Splitting, self).__init__()
@@ -210,7 +209,7 @@ class IRN(nn.Module):
                 num_levels = 3, concat_len = 0, groups = 1, kernel = 5, dropout = 0.5,
                  single_step_output_One = 0, input_len_seg = 0, positionalE = False, modified = True, RIN=False):
         super(IRN, self).__init__()
-        self.ITB=ITB()
+        self.MMA=MMA()
         self.sig=nn.Sigmoid()
         self.input_dim = input_dim
         self.input_len = input_len
@@ -225,12 +224,7 @@ class IRN(nn.Module):
         self.concat_len = concat_len
         self.pe = positionalE
         self.RIN=RIN
-        #mix option
-        self.mix=True
-        if self.mix:
-            self.mixon=0
-            self.index_c=[]
-            self.index_o=[]
+
         self.blocks1 = EncoderTree(
             in_planes=self.input_dim,
             num_levels = self.num_levels,
@@ -339,29 +333,11 @@ class IRN(nn.Module):
 
         # the first stack
         #heremma module add
-        # print(x.shape)
-        # print(x[:,:,2].shape)
-        # if self.mix:
-        #     if self.mixon==0:
-        #         self.index_c=list(range(0,x.shape[2]))
-        #         random.shuffle(self.index_c)
-        #         print(self.index_c)
-        #         self.mixon=1
-        #         for i in range(x.shape[2]):
-        #             self.index_o.append(self.index_c.index(i))
-
-        #     for idx,i in enumerate(self.index_c):
-        #         if idx==0:
-        #             new_x=x[:,:,i].reshape(x.shape[0],x.shape[1],1)
-        #         else:
-        #             new_x=torch.cat((new_x,x[:,:,i].reshape(x.shape[0],x.shape[1],1)),dim=2)
-        #     x=new_x
-        # x=torch.cat((x[:,:,2].reshape(x.shape[0],x.shape[1],1),x[:,:,4].reshape(x.shape[0],x.shape[1],1),x[:,:,1].reshape(x.shape[0],x.shape[1],1),x[:,:,6].reshape(x.shape[0],x.shape[1],1),x[:,:,0].reshape(x.shape[0],x.shape[1],1),x[:,:,5].reshape(x.shape[0],x.shape[1],1),x[:,:,3].reshape(x.shape[0],x.shape[1],1)),dim=2)
         x_ori=x
         x_heat=x.reshape(x.shape[0],1,x.shape[1],x.shape[2])
-        x_heat=self.ITB(x_heat)
+        x_heat=self.MMA(x_heat)
         x_heat=x_heat.reshape(x_heat.shape[0],x_heat.shape[2],x_heat.shape[3])
-        x=x_ori*self.sig(x_heat)
+        x=x_ori*self.sig(x_heat)+x_ori
         res1 = x_ori
         x = self.blocks1(x)
         x += res1
@@ -374,15 +350,7 @@ class IRN(nn.Module):
                 x = x / (self.affine_weight + 1e-10)
                 x = x * stdev
                 x = x + means
-            # if self.mix:
-            #     for idx,i in enumerate(self.index_o):
-            #         if idx==0:
-            #             new_x_o=x[:,:,i].reshape(x.shape[0],x.shape[1],1)
-            #         else:
-            #             new_x_o=torch.cat((new_x_o,x[:,:,i].reshape(x.shape[0],x.shape[1],1)),dim=2)
-            #     x=new_x_o
-            # x=torch.cat((x[:,:,2],x[:,:,4],x[:,:,1],x[:,:,6],x[:,:,0],x[:,:,5],x[:,:,3]),dim=2)
-            # x=torch.cat((x[:,:,4].reshape(x.shape[0],x.shape[1],1),x[:,:,2].reshape(x.shape[0],x.shape[1],1),x[:,:,0].reshape(x.shape[0],x.shape[1],1),x[:,:,6].reshape(x.shape[0],x.shape[1],1),x[:,:,1].reshape(x.shape[0],x.shape[1],1),x[:,:,5].reshape(x.shape[0],x.shape[1],1),x[:,:,3].reshape(x.shape[0],x.shape[1],1)),dim=2)
+
             return x,x_heat
 
         elif self.stacks == 2:
@@ -397,7 +365,7 @@ class IRN(nn.Module):
             x = self.blocks2(x)
             x += res2
             x = self.projection2(x)
-            # print(x.shape)
+            
             ### Reverse RIN ###
             if self.RIN:
                 MidOutPut = MidOutPut - self.affine_bias
@@ -410,14 +378,7 @@ class IRN(nn.Module):
                 x = x / (self.affine_weight + 1e-10)
                 x = x * stdev
                 x = x + means
-            # if self.mix:
-            #     for idx,i in enumerate(self.index_o):
-            #         if idx==0:
-            #             new_x_o=x[:,:,i].reshape(x.shape[0],x.shape[1],1)
-            #         else:
-            #             new_x_o=torch.cat((new_x_o,x[:,:,i].reshape(x.shape[0],x.shape[1],1)),dim=2)
-            #     x=new_x_o
-            # x=torch.cat((x[:,:,4].reshape(x.shape[0],x.shape[1],1),x[:,:,2].reshape(x.shape[0],x.shape[1],1),x[:,:,0].reshape(x.shape[0],x.shape[1],1),x[:,:,6].reshape(x.shape[0],x.shape[1],1),x[:,:,1].reshape(x.shape[0],x.shape[1],1),x[:,:,5].reshape(x.shape[0],x.shape[1],1),x[:,:,3].reshape(x.shape[0],x.shape[1],1)),dim=2)
+
             return x, MidOutPut,x_heat
 
 
@@ -444,25 +405,29 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    model = IRN(output_len = args.horizon, input_len= args.window_size, input_dim = 9, hid_size = args.hidden_size, num_stacks = 1,
+    model = SCINet(output_len = args.horizon, input_len= args.window_size, input_dim = 9, hid_size = args.hidden_size, num_stacks = 1,
                 num_levels = 3, concat_len = 0, groups = args.groups, kernel = args.kernel, dropout = args.dropout,
                  single_step_output_One = args.single_step_output_One, positionalE =  args.positionalEcoding, modified = True).cuda()
     x = torch.randn(32, 96, 9).cuda()
     y = model(x)
     print(y.shape)
 
+
 class MMACNN0(nn.Module):
     def __init__(self):
         super(MMACNN0, self).__init__()
-        self.cnn01=nn.Conv2d(1,6,3,padding=(1,1))
-        self.bn01 = nn.GroupNorm(1,6)
+        self.cnn01=nn.Conv2d(1,8,5,padding=(2,2))
+        self.bn01 = nn.GroupNorm(1,8)
         self.relu01 = nn.ReLU()
-        self.cnn02=nn.Conv2d(6,6,3,padding=(1,1))
-        self.bn02 = nn.GroupNorm(1,6)
+        self.cnn02=nn.Conv2d(8,8,3,padding=(2,2),dilation=2)
+        self.bn02 = nn.GroupNorm(1,8)
         self.relu02 = nn.ReLU()
-        self.cnn03=nn.Conv2d(6,6,3,padding=(1,1))
-        self.bn03 = nn.GroupNorm(1,6)
+        self.cnn03=nn.Conv2d(8,8,3,padding=(1,1))
+        self.bn03 = nn.GroupNorm(1,8)
         self.relu03 = nn.ReLU()
+        self.cnn04=nn.Conv2d(8,8,3,padding=(2,2),dilation=2)
+        self.bn04 = nn.GroupNorm(1,8)
+        self.relu04 = nn.ReLU()
     
     def forward(self, x):
         # print(x.shape)
@@ -471,22 +436,24 @@ class MMACNN0(nn.Module):
         x=self.bn02(self.relu02(self.cnn02(x)))
         # print(x.shape)
         x=self.bn03(self.relu03(self.cnn03(x)))
+        x=self.bn04(self.relu04(self.cnn04(x)))
         # print(x.shape)
         return x
 
 class MMACNN(nn.Module):
     def __init__(self):
         super(MMACNN, self).__init__()
-        self.cnn01=nn.Conv2d(6,6,3,padding=(1,1))
-        self.bn01 = nn.GroupNorm(1,6)
+        self.cnn01=nn.Conv2d(8,8,3,padding=(2,2),dilation=2)
+        self.bn01 = nn.GroupNorm(1,8)
         self.relu01 = nn.ReLU()
-        self.cnn02=nn.Conv2d(6,6,3,padding=(1,1))
-        self.bn02 = nn.GroupNorm(1,6)
+        self.cnn02=nn.Conv2d(8,8,3,padding=(1,1))
+        self.bn02 = nn.GroupNorm(1,8)
         self.relu02 = nn.ReLU()
-        self.cnn03=nn.Conv2d(6,6,3,padding=(1,1))
-        self.bn03 = nn.GroupNorm(1,6)
+        self.cnn03=nn.Conv2d(8,8,3,padding=(2,2),dilation=2)
+        self.bn03 = nn.GroupNorm(1,8)
         self.relu03 = nn.ReLU()
         
+    
     def forward(self, x):
         x=self.bn01(self.relu01(self.cnn01(x)))
         x=self.bn02(self.relu02(self.cnn02(x)))
@@ -500,11 +467,11 @@ class cnn1x1(nn.Module):
     def forward(self, x):
         x = self.cnn(x)
         return x
-class ITB(nn.Module):
+class MMA(nn.Module):
     def __init__(self):
-        super(ITB,self).__init__()
+        super(MMA,self).__init__()
         self.cnn0=MMACNN0()
-        self.cnn1=nn.Conv2d(6,6,3,padding=(1,1))
+        self.cnn1=nn.Conv2d(8,8,3,padding=(2,2),dilation=2)
         self.cnn2=MMACNN()
         self.cnn3=MMACNN()
         self.cnn4=MMACNN()
@@ -514,7 +481,7 @@ class ITB(nn.Module):
         self.min=nn.MaxPool2d(5,stride=1,padding=2)
         self.avg=nn.AvgPool2d(5,stride=1,padding=2)
         self.tanh=nn.Tanh()
-        self.channelcnn = cnn1x1(6, 1, bias=False)
+        self.channelcnn = cnn1x1(8, 1, bias=False)
 
     def forward(self, x):
         # print(x.shape)
@@ -533,7 +500,6 @@ class ITB(nn.Module):
         xout=self.channelcnn(self.cnn6(xs+xir+x0))
         # print(xout.shape)
         return xout
-
 
 
 
