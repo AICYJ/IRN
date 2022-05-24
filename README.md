@@ -53,11 +53,14 @@ conda create -n irn python=3.8
 conda activate irn
 pip install -r requirements.txt
 ```
+**caution**
+Pytorch version is very sensitive, therefore you need to download pytorch 1.8.0 according to OS verstion, GPU series, and cuda verstion.
+
 
 ### Dataset preparation
 
 <!-- All datasets can be downloaded [here](https://drive.google.com/drive/folders/1RIQ5V1yOojvkf2R4yh2MotFF_p5QmoTk?usp=sharing).  -->
-To prepare all dataset at one time, you can just run:
+To prepare all dataset at one time, you can just run shell script prepare_data.sh:
 ```
 source prepare_data.sh
 ```
@@ -83,7 +86,7 @@ datasets
 
 ### Pretrain preparation
 <!-- All datasets can be downloaded [here](https://drive.google.com/drive/folders/1XmTj18Abjv2FUizPb2zqvImrDmScIYn6?usp=sharing).  -->
-To prepare all pretrain models at one time, you can just run:
+To prepare all pretrain models at one time, you can just run shell script prepare_data.sh:
 ```
 source prepare_pretrainmodel.sh
 ```
@@ -209,7 +212,7 @@ checkpoints
 
 ## Run Train code
 
-We follow the same settings of [StemGNN](https://github.com/microsoft/StemGNN) for PEMS 03, 04, 07, 08 datasets, [MTGNN](https://github.com/nnzhan/MTGNN) for Solar, electricity, traffic, financial datasets, [Informer](https://github.com/zhouhaoyi/Informer2020) for ETTH1, ETTH2, ETTM1 datasets. The detailed training commands are given as follows. Finally, we mainly refer to [SCINET](https://github.com/cure-lab/SCINet) which conducts all experiments.
+We follow the same settings of [StemGNN](https://github.com/microsoft/StemGNN) for PEMS 03, 04, 07, 08 datasets, [MTGNN](https://github.com/nnzhan/MTGNN) for Solar, electricity, traffic, financial datasets, [Informer](https://github.com/zhouhaoyi/Informer2020) for ETTH1, ETTH2, ETTM1 datasets. The detailed training commands are given as follows. Finally, we mainly refer to [SCINET](https://github.com/cure-lab/SCINet) which conducts all experiments. 
 #### For ETTH1 dataset:
 
 multivariate, out 24
