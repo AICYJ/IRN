@@ -209,6 +209,7 @@ checkpoints
 
 ## Run Train code
 
+We follow the same settings of [StemGNN](https://github.com/microsoft/StemGNN) for PEMS 03, 04, 07, 08 datasets, [MTGNN](https://github.com/nnzhan/MTGNN) for Solar, electricity, traffic, financial datasets, [Informer](https://github.com/zhouhaoyi/Informer2020) for ETTH1, ETTH2, ETTM1 datasets. The detailed training commands are given as follows. Finally, we mainly refer to [SCINET](https://github.com/cure-lab/SCINet) which conducts all experiments.
 #### For ETTH1 dataset:
 
 multivariate, out 24
@@ -486,7 +487,6 @@ python run_financial.py --dataset_name electricity --window_size 168 --horizon 2
 
 ## Run Pretrain testing code
 
-We follow the same settings of [StemGNN](https://github.com/microsoft/StemGNN) for PEMS 03, 04, 07, 08 datasets, [MTGNN](https://github.com/nnzhan/MTGNN) for Solar, electricity, traffic, financial datasets, [Informer](https://github.com/zhouhaoyi/Informer2020) for ETTH1, ETTH2, ETTM1 datasets. The detailed training commands are given as follows. Finally, we mainly refer to [SCINET](https://github.com/cure-lab/SCINet) which conducts all experiments.
 
 ### (Very Important)Precautions for testing pretrain models
 
