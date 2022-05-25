@@ -2,7 +2,7 @@
 
 This is the original PyTorch implementation of the following work: **Irregularity Reflection Neural Network for Multivariate Time Series Forecasting**. If you find this repository useful for your work, please consider citing it as follows:
 ## Content
- - Dataset
+ - Datasets
  - Requirements
  - Dataset preparation
  - Pretrain preparation
@@ -54,13 +54,13 @@ conda activate irn
 pip install -r requirements.txt
 ```
 **caution**
-Pytorch version is very sensitive, therefore you need to download pytorch 1.8.0 according to OS verstion, GPU series, and cuda verstion.
+Pytorch version is very sensitive, therefore you need to download pytorch 1.8.0 according to OS version, GPU series, and cuda version.
 
 
 ### Dataset preparation
 
 <!-- All datasets can be downloaded [here](https://drive.google.com/drive/folders/1RIQ5V1yOojvkf2R4yh2MotFF_p5QmoTk?usp=sharing).  -->
-To prepare all dataset at one time, you can just run shell script prepare_data.sh:
+To prepare the datasets, run shell script prepare_data.sh:
 ```
 source prepare_data.sh
 ```
@@ -86,7 +86,7 @@ datasets
 
 ### Pretrain preparation
 <!-- All datasets can be downloaded [here](https://drive.google.com/drive/folders/1XmTj18Abjv2FUizPb2zqvImrDmScIYn6?usp=sharing).  -->
-To prepare all pretrain models at one time, you can just run shell script prepare_data.sh:
+To prepare the pretrain models, run shell script prepare_data.sh:
 ```
 source prepare_pretrainmodel.sh
 ```
@@ -212,7 +212,7 @@ checkpoints
 
 ## Run Train code
 
-We follow the same settings of [StemGNN](https://github.com/microsoft/StemGNN) for PEMS 03, 04, 07, 08 datasets, [MTGNN](https://github.com/nnzhan/MTGNN) for Solar, electricity, traffic, financial datasets, [Informer](https://github.com/zhouhaoyi/Informer2020) for ETTH1, ETTH2, ETTM1 datasets. The detailed training commands are given as follows. Finally, we mainly refer to [SCINET](https://github.com/cure-lab/SCINet) which conducts all experiments. 
+We mainly refer to [SCINET](https://github.com/cure-lab/SCINet) which conducts all experiments. We follow the same settings of [StemGNN](https://github.com/microsoft/StemGNN) for PEMS 03, 04, 07, 08 datasets, [MTGNN](https://github.com/nnzhan/MTGNN) for Solar, electricity, traffic, financial datasets, [Informer](https://github.com/zhouhaoyi/Informer2020) for ETTH1, ETTH2, ETTM1 datasets. The detailed training commands are given as follows. 
 #### For ETTH1 dataset:
 
 multivariate, out 24
@@ -493,7 +493,7 @@ python run_financial.py --dataset_name electricity --window_size 168 --horizon 2
 
 ### (Very Important)Precautions for testing pretrain models
 
-Since the pretrain model was trained by using 8 gpus, these gpus are assigned differently for each parameter, so we need to test using 8 gpus to prevent errors.
+All pretrain models were trained using 8 GPUs and these are assigned differently for each parameter. Therefore, we recommand using 8 GPUs to prevent errors.
 GPU setting command is as below.
 ```
 export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
