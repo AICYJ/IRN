@@ -358,7 +358,7 @@ python run_ETTh.py --data ETTm1 --features S  --seq_len 672 --label_len 672 --pr
 | stacks         | The number of SCINet blocks  | K                  | 1                          |
 
 
-#### For PEMS dataset (All datasets follow Input 12, Output 12):
+#### For PEMS dataset:
 
 pems03
 ```
@@ -644,7 +644,7 @@ python run_ETTh.py --data ETTm1 --features S  --seq_len 672 --label_len 672 --pr
 | stacks         | The number of SCINet blocks  | K                  | 1                          |
 
 
-#### For PEMS dataset (All datasets follow Input 12, Output 12):
+#### For PEMS dataset:
 
 pems03
 ```
